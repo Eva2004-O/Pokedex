@@ -10,6 +10,7 @@ const nombre = document.getElementById("nom");
 const tituloNun = document.getElementById("TituloNumero");
 const tituloTip = document.getElementById("TituloTipos");
 const tituloStat = document.getElementById("TituloStats");
+const sumaStats = document.getElementById("sumaStats")
 
 const limpiar = () => {
   statsList.innerHTML = "";
@@ -19,6 +20,7 @@ const limpiar = () => {
   tituloNun.innerHTML = "";
   tituloTip.innerHTML = "";
   tituloStat.innerHTML = "";
+  sumaStats.innerHTML = ""
 }
 
  btn.addEventListener("click", () => {
@@ -27,7 +29,7 @@ const limpiar = () => {
    fetch(`https://pokeapi.co/api/v2/pokemon/${pokemon}`)
      .then((response) => response.json())
      .then((data) => {
-       //statsList.style.display = "none";
+       
        //declarar
        const stats = data.stats;
        const types = data.types;
@@ -44,11 +46,14 @@ const limpiar = () => {
        tituloTip.textContent = "Tipos: ";
        tituloStat.textContent = "Stats: ";
        //Stats base
+       let suma = 0
        stats.forEach((stat) => {
          const statLi = document.createElement("li");
          statLi.textContent = `${stat.stat.name}: ${stat.base_stat}`;
          statsList.appendChild(statLi);
+          suma += stat.base_stat
        });
+       sumaStats.innerHTML = `<h2>Suma Stats </h2> <p>${suma} </p>`
        //tipos
 
        types.forEach((type) => {
